@@ -1,0 +1,107 @@
+{% include "base.html" %}
+  <!-- Header -->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <img src="/static/img/banner.jpeg" width="100%">
+   <!--        <h1 class="display-4 text-white mt-5 mb-2">Business Name or Tagline</h1>
+          <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p>
+    -->     </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+<div class="card mb-5 ">
+
+  <div class="card-body">
+    <h5 class="card-title">{{ data.Program_category_name }}</h5>
+    <p class="card-text">{{ data.Program_Description }}</p>
+ 
+  </div>
+</div>
+
+
+    <div class="row">
+
+             {% for d in detail %}
+             {% if d.status == 'Active' %}
+             <div class="card m-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ d.Program_name }}(  &#36;          {% if profile.Position == 'Ymca Member' or profile.Position == 'Staff User'  %}
+      {{ d.Price_for_ymca_Member }}
+
+      {% else %}
+      {{ d.Price_for_non_ymca_Member }}
+           
+
+          {% endif %} 
+ )</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ d.Programs_category_name }}</h6>
+    <p class="card-text">{{ d.Description }}
+      <br>
+      <br>
+      <i class="fa fa-map-marker" aria-hidden="true"></i>
+    {{d.Location}}</p>
+    <a  class="card-link"> <i class="fa fa-calendar" aria-hidden="true"></i> {{d.StartingDate}} To {{d.EndingDate}} </a><br>
+    <a class="card-link"><i class="fa fa-clock-o" aria-hidden="true"></i> {{d.StartingTime}} To {{d.EndingTime}}</a><br>
+    <a class="card-link"><i class="fa fa-user" aria-hidden="true"></i>Member Allowed :   {{d.Participant_allowed}}</a>
+    
+  </div>
+      <div class="card-footer">
+         {% if user.is_authenticated %}
+    <a href="{{ d.Programs_category_name }}/{{ d.id }}/programregister" class="btn btn-primary">Register now</a>  
+    </div>
+     {% else %}
+
+    <a href="{% url 'login' %}" class="btn btn-primary">Register now</a>  
+    </div>
+{% endif %}
+</div>
+{% else %}
+             <div class="card m-3" style="width: 18rem;opacity: 0.5">
+  <div class="card-body">
+    <h5 class="card-title">{{ d.Program_name }}(  &#36;          {% if profile.Position == 'Ymca Member' or profile.Position == 'Staff User'  %}
+      {{ d.Price_for_ymca_Member }}
+
+      {% else %}
+      {{ d.Price_for_non_ymca_Member }}
+           
+
+          {% endif %} 
+ )</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ d.Programs_category_name }}</h6>
+    <p class="card-text">{{ d.Description }}
+      <br>
+      <br>
+      <i class="fa fa-map-marker" aria-hidden="true"></i>
+    {{d.Location}}</p>
+    <a  class="card-link"> <i class="fa fa-calendar" aria-hidden="true"></i> {{d.StartingDate}} To {{d.EndingDate}} </a><br>
+    <a class="card-link"><i class="fa fa-clock-o" aria-hidden="true"></i> {{d.StartingTime}} To {{d.EndingTime}}</a><br>
+    <a class="card-link"><i class="fa fa-user" aria-hidden="true"></i>Member Allowed :   {{d.Participant_allowed}}</a>
+    
+  </div>
+      <div class="card-footer">
+         {% if user.is_authenticated %}
+    <a href="" class="btn btn-primary">Program canceled</a>  
+    </div>
+     {% else %}
+
+    <a href="" class="btn btn-primary" >Program canceled</a>  
+    </div>
+{% endif %}
+</div>
+
+{% endif %}
+
+         {% endfor %}
+      </div>
+   </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+{% include "footer.html" %}

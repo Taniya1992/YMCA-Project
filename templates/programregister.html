@@ -1,0 +1,91 @@
+{% include "base.html" %}
+  <!-- Header -->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text-white mt-5 mb-2">Registration For Program</h1>
+<!--           <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p> -->
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="row p-5">
+    <div class="col-md-3">
+      
+    </div>
+    <div class="col-md-6">
+
+
+      {% if check.User == user.username and check.Program_name == data.Program_name  %}
+      <div class="alert alert-success" role="alert">
+      
+  You have succesfully applied for this program 
+</div>
+{% else %}
+      <!-- <h2>Sign up Form</h2> -->
+<form method="POST">
+  {% csrf_token %} 
+  <div class="row">
+    <div class="col-md-6">
+      <label>User name</label>
+            <input type="hidden" class="form-control" value="{{user.username}}" name="User" >
+      <input type="text" class="form-control" value="{{user.username}}" disabled>
+    </div>
+        <div class="col-md-6">
+          <label>Program name</label>
+    <input type="hidden" class="form-control" name="pname" value="{{ data.Program_name }}" >
+  
+      <input type="text" class="form-control"  value="{{ data.Program_name }}"  disabled>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <label>Date</label>
+        <input type="text" class="form-control" value="{{data.StartingDate}} To {{data.EndingDate}} " disabled >
+        <input type="hidden" class="form-control" value="{{data.StartingDate}} To {{data.EndingDate}} " name="date" >
+
+      </div>
+        <div class="col-md-6">
+          <label>Time</label>
+
+      <input type="hidden" class="form-control" value="{{data.StartingTime}} To {{data.EndingTime}}" name="time" >
+
+      <input type="text" class="form-control" value="{{data.StartingTime}} To {{data.EndingTime}}" disabled>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <label>Price</label>
+      {% if profile.Position == 'Ymca Member' or profile.Position == 'Staff User'  %}
+      
+      <input type="text" class="form-control" value="{{ data.Price_for_ymca_Member }}" disabled >
+           
+      <input type="hidden" class="form-control" value="{{ data.Price_for_ymca_Member }}" name="price" >
+
+      {% else %}
+      
+      <input type="hidden" class="form-control" value="{{ data.Price_for_non_ymca_Member }}" name="price" >
+      
+      <input type="text" class="form-control" value="{{ data.Price_for_non_ymca_Member }}" disabled >
+
+          {% endif %} 
+    </div>
+        
+  </div>
+
+  <button class="btn btn-primary mt-5" type="submit">Register</button>
+</form>
+{% endif %}
+
+
+
+    </div>
+    <div class="col-md-3">
+      
+    </div>
+    
+  </div>
+
+
+{% include "footer.html" %}

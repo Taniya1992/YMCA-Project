@@ -1,0 +1,71 @@
+
+def program(request,myid):
+    Program_category = Programs_category.objects.get(Program_category_name=myid)
+    context={
+    'data': Program_category
+    }
+    try:
+        profile = Profile.objects.get(username1 = request.user.username )
+    except :
+        pass
+    try:
+        detail = Programs.objects.filter(Programs_category_name=myid)
+        context={
+        'detail':detail,
+        'data': Program_category,
+        'profile':profile
+
+        }
+    except:
+        pass
+    return render(request, 'program.html',context)
+
+@login_required
+def addprogram(request):
+    profile_data = Programs.objects.all()
+    context={
+    'data': profile_data
+    }
+    try:
+        detail = Programs_category.objects.all()
+        context={
+        'detail':detail,
+        'data': profile_data
+
+        }
+    except:
+        pass
+    if request.method == 'POST' and request.FILES['programimage']:
+        if 'programcn' in request.POST  :
+            pc = Programs_category()
+            pc.Program_category_name = request.POST['programcn']
+            pc.Program_Description = request.POST['programcd']
+            pc.Program_logo = request.FILES['programimage']
+            pc.save()
+        else:
+            pass
+    else:
+        pass
+
+    if request.method == 'POST':
+        pd = Programs()
+        if 'programname' in request.POST:
+            pd.Programs_category_name = request.POST["category"]
+            pd.Program_name = request.POST["programname"]
+            pd.Price_for_ymca_Member = request.POST["Price_for_ymca_Member"]
+            pd.Price_for_non_ymca_Member = request.POST["Price_for_non_ymca_Member"]
+            pd.StartingDate = request.POST["StartingDate"]
+            pd.EndingDate = request.POST["EndingDate"]
+            pd.StartingTime = request.POST["StartingTime"]
+            pd.EndingTime = request.POST["EndingTime"]
+            pd.Location = request.POST["Location"]
+            pd.Description = request.POST["Description"]
+            pd.Participant_allowed = request.POST["Participant_allowed"]
+            pd.save()
+        else:
+            pass
+
+    else:
+        pass
+
+    return render(request, 'addprogram.html',context)

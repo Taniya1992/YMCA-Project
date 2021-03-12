@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>YMCA Project</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/business-frontpage.css" rel="stylesheet">
+  <style>
+.accordion {
+  background-color:dodgerblue;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+ .accordion:hover {
+  background-color: #ccc; 
+}
+
+.panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+</style>
+
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/"><img src="/static/img/logo.jpeg"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+                     <li class="nav-item">
+            <a class="nav-link btn" href="/static/usermenu.pdf" target="_blank">User manual</a>
+          </li>
+
+          {% if detail.Position == 'Staff User'  %}
+           <li class="nav-item">
+            <a class="nav-link btn" href="/alluser">All Users</a>
+          </li>
+
+           <li class="nav-item">
+            <a class="nav-link btn" href="/allprogram">All Program</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link btn" href="/Registrations">Registrations</a>
+          </li>
+
+           <li class="nav-item">
+            <a class="nav-link btn" href="/addprogram">Add Program</a>
+          </li>
+
+          {% endif %} 
+
+          
+ {% if user.is_authenticated %}
+ <li><a class="btn"> <strong>{{ user.username }}</strong></a></li>
+ <!-- <li><a class="nav-link" href="/result/{{ user.username }}">Myprofile</a></li> -->
+ <li ><a  class="btn btn-danger" href="{% url 'logout' %}">Log out </a></li>
+ {% else %}
+<li><a class="btn btn-primary mr-2"  href="{% url 'login' %}">Log in</a></li>
+<li><a class=" btn btn-primary"  href="/signup">Register</a></li>
+
+{% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </nav>

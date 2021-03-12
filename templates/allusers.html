@@ -1,0 +1,77 @@
+{% include "base.html" %}
+  <!-- Header -->
+  <header class="bg-primary py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text-white mt-5 mb-2">All Users</h1>
+          <p class="lead mb-5 text-white-50">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non possimus ab labore provident mollitia. Id assumenda voluptate earum corporis facere quibusdam quisquam iste ipsa cumque unde nisi, totam quas ipsam.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section>
+  
+  <div class="container">
+    <div class="card">
+      <div id="collapseTwo" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+  
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+    
+    
+  </div>
+</section>
+
+<div class="container">
+    
+  <div class="row pb-5 pt-1">
+    <table class="table table-striped">
+      <tbody>
+              
+        <tr>
+          <th>Sr. No.</th>
+          <th>Username</th>
+          <th>Position</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Delete</th>
+        </tr>
+          {% for n in data %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{n.username1}}</td>
+          <td>{{n.Position}}</td>
+          <td>{{n.Gender}}</td>
+          <td>{{n.email}}</td>
+        <td >
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user123" value="{{n.username1}}">
+          <button style="border-style: none;background-color: transparent;"><i  class="fa fa-times" style="font-size: 50px;color: red;" aria-hidden="true"></i>
+</button>
+</form>
+
+          </td>         
+        </tr>
+
+          {% endfor %}
+      </tbody>
+      
+    </table>
+
+    
+  </div>
+
+  
+</div>
+
+
+
+{% include "footer.html" %}
